@@ -1,0 +1,26 @@
+div.pool-1 {
+    position: relative;
+    -webkit-animation: floatImage 20s infinite  normal ease-out;
+    animation: floatImage 20s infinite  normal ease-out;
+}
+@-webkit-keyframes floatImage {
+    0% { opacity: 0; top: 4rem; }
+    50% { opacity: 1; top: 2rem; }
+    100% { opacity: 0; top: 0; }
+}
+@keyframes floatImage {
+    0% { opacity: 0; top: 4rem; }
+    50% { opacity: 1; top: 2rem; }
+    100% { opacity: 0; top: 0; }
+}
+img.pool-1 {
+ width: 20%;
+ height: 20%;
+}
+
+body {
+ background-color: black;
+ overflow-y: hidden; /* Hide vertical scrollbar */
+ overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+

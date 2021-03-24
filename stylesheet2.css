@@ -1,0 +1,39 @@
+/* fishhead */
+/* div.page-1 { 
+    position: absolute;
+    top: 75%;
+    right: 38%;
+} */
+#page-1 { 
+    position: absolute;
+    width: 670px; 
+    height: 446px; 
+    /* originally 335 x 223 px */
+}
+/* yachiyo */
+/* div.page-2 { 
+    position: absolute;  
+    top: 100%;
+    right: 39%;
+} */
+#page-2 {
+    position: absolute;
+    width: 600px; 
+}
+/* pool */
+/* div.page-3 { 
+    position: absolute; 
+    top: 100%;
+    right: 39%; 
+} */
+#page-3 { 
+    position: absolute;
+    width: 700px; 
+}
+
+body {
+ background-color: black;
+ overflow-y: hidden; /* Hide vertical scrollbar */
+ overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
