@@ -13,7 +13,7 @@
 var id = null;
 //animate in groups of three
 //TODO: add randomness
-function myMove(page, page2, page3) {
+function startMovie(page, page2, page3) {
     var elem = document.getElementById(page); 
     var elem2 = document.getElementById(page2);
     var elem3 = document.getElementById(page3);  
@@ -38,10 +38,7 @@ function myMove(page, page2, page3) {
     var width3 = 700;
     var height3 = 467;
 
-    elem.style.top = posTop + "px";
-    elem.style.width = width + "px";
-    elem.style.height = height + "px";
-    elem.style.left = posLeft + "%";
+    setStyle(elem, 500, 670, 446, 100, 30)
     clearInterval(id);
     id = setInterval(function(){
         animate();
@@ -49,6 +46,13 @@ function myMove(page, page2, page3) {
         animateRight();
     }, 20);
 
+    function setStyle(element, top, width, height, opacity, posLeft) {
+      element.style.top = top + "px";
+      element.style.width = width + "px";
+      element.style.height = height + "px";
+      element.style.opacity = opacity + "%";
+      element.style.left = posLeft + "%";
+    }
     function animate() {
         posTop = posTop - 0.7; 
         opacity = opacity - 0.10;
@@ -89,7 +93,7 @@ function myMove(page, page2, page3) {
   }
 }
 
-myMove("page-1", "page-2", "page-3");
+startMovie("page-1", "page-2", "page-3");
  
 
 </script>
