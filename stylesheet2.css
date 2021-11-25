@@ -6,8 +6,8 @@
 } */
 #page-1 { 
     position: absolute;
-    width: 670px; 
-    height: 446px; 
+    /* width: 670px;  */
+    /* height: 446px;  */
     /* originally 335 x 223 px */
 }
 /* yachiyo */
@@ -18,7 +18,7 @@
 } */
 #page-2 {
     position: absolute;
-    width: 600px; 
+    /* width: 600px;  */
 }
 /* pool */
 /* div.page-3 { 
@@ -28,7 +28,7 @@
 } */
 #page-3 { 
     position: absolute;
-    width: 700px; 
+    /* width: 700px;  */
 }
 
 body {
