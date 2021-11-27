@@ -10,51 +10,70 @@
 <script type = "text/javascript">
  
 var id = null;
-function myMove(page, page2, page3) {
-
-    var elem = document.getElementById(page); 
+//TODO: startMovie page2 page3 optional
+//TODO: add randomness
+//startMovie animates in groups of three
+//startMovie takes the name of the image and the styles as params
+function startMovie(page1, page2, page3) {
+    var elem1 = document.getElementById(page1); 
     var elem2 = document.getElementById(page2);
     var elem3 = document.getElementById(page3);  
     elem2.style.opacity = 0;
     elem3.style.opacity = 0;
+//need to keep state here for the animate functions
+    var width1 = 670;
+    var height1 = 446;
+    var opacity1 = 100;
+    var posTop1 = 500; 
+    var posLeft1 = 30;
 
-    var opacity = 100;
-    var posTop = 500; 
-    var posLeft = 30;
-
+    var width2 = 600;
+    var height2 = 413;  
     var posTop2 = 980;
     var opacity2 = 100;
     var posLeft2 = 350;
 
+    var width3 = 700;
+    var height3 = 467;
     var posTop3 = 1100;
     var opacity3 = 0;
     var posLeft3 = 550;
 
-    elem.style.top = posTop + "px";   
-    elem.style.left = posLeft + "%";   
+    setStyle(elem1, width1, height1, opacity1, posTop1, posLeft1);
     clearInterval(id);
+    //animate functions are called on an interval
     id = setInterval(function(){
         animate();
         animateLeft();
         animateRight();
     }, 20);
 
+    function setStyle(element, width1, height1, opacity1, top1, posLeft1) {
+      element.style.top = top1 + "px";
+      element.style.width = width1 + "px";
+      element.style.height = height1 + "px";
+      element.style.opacity = opacity1 + "%";
+      element.style.left = posLeft1 + "%";
+    }
     function animate() {
-        posTop = posTop - 0.7; 
-        opacity = opacity - 0.10;
-        elem.style.top = posTop + "px"; 
-        elem.style.opacity = opacity + "%";
+        posTop1 = posTop1 - 0.7;
+        opacity1 = opacity1 - 0.10;
+        elem1.style.top = posTop1 + "px";
+        elem1.style.opacity = opacity1 + "%";
     };
     function animateLeft() {
-        posTop2 = posTop2 - 0.5; 
+        posTop2 = posTop2 - 0.5;
         if (posTop2 < 600) {
-            posLeft2 = posLeft2 - 0.12; 
+            posLeft2 = posLeft2 - 0.12;
             opacity2 = opacity2 - 0.08;
         }
         
-        elem2.style.top = posTop2 + "px"; 
+        elem2.style.top = posTop2 + "px";
+        elem2.style.width = width2 + "px";
+        elem2.style.height = height2 + "px";
         elem2.style.opacity = opacity2 + "%";
-        elem2.style.left = posLeft2 + "px"; 
+        elem2.style.left = posLeft2 + "px";
+        // setStyle(elem2, width2, height2, opacity2, posTop2, posLeft2);
     };
   function animateRight() {
     if (posTop3 <= -450) {
@@ -62,20 +81,22 @@ function myMove(page, page2, page3) {
     } else {
       posTop3 = posTop3 - 0.3; 
       if (posTop3 < 800) {
-        opacity3 = opacity3 + 0.09;  
+        opacity3 = opacity3 + 0.09;
         if (posTop3 < 500) {
-        posLeft3 = posLeft3 + 0.11;   
-        opacity3 = opacity3 - 0.15;     
+        posLeft3 = posLeft3 + 0.11;
+        opacity3 = opacity3 - 0.15;
         } 
       }  
-      elem3.style.top = posTop3 + "px"; 
+      elem3.style.top = posTop3 + "px";
+      elem3.style.width = width3 + "px";
+      elem3.style.height = height3 + "px";
       elem3.style.opacity = opacity3 + "%";
-      elem3.style.left = posLeft3 + "px"; 
+      elem3.style.left = posLeft3 + "px";
     }
   }
 }
-
-myMove("page-1", "page-2", "page-3");
+images = []
+startMovie("page-1", "page-2", "page-3");
 
 </script>
 </body>
