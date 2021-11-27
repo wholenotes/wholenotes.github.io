@@ -10,6 +10,7 @@
 <script type = "text/javascript">
  
 var id = null;
+//TODO: handle more images
 //TODO: startMovie page2 page3 optional
 //TODO: add randomness
 //startMovie animates in groups of three
@@ -20,24 +21,28 @@ function startMovie(page1, page2, page3) {
     var elem3 = document.getElementById(page3);  
     elem2.style.opacity = 0;
     elem3.style.opacity = 0;
+
 //need to keep state here for the animate functions
+    var screenHeight = screen.height;
+    var screenWidth = screen.width;
+
     var width1 = 670;
     var height1 = 446;
     var opacity1 = 100;
-    var posTop1 = 500; 
+    var posTop1 = screenHeight * 0.8; 
     var posLeft1 = 30;
 
     var width2 = 600;
     var height2 = 413;  
-    var posTop2 = 980;
+    var posTop2 = screenHeight * 1.2;
     var opacity2 = 100;
-    var posLeft2 = 350;
+    var posLeft2 = 27;
 
     var width3 = 700;
     var height3 = 467;
-    var posTop3 = 1100;
+    var posTop3 = screenHeight * 1.21;
     var opacity3 = 0;
-    var posLeft3 = 550;
+    var posLeft3 = 35;
 
     setStyle(elem1, width1, height1, opacity1, posTop1, posLeft1);
     clearInterval(id);
@@ -61,20 +66,17 @@ function startMovie(page1, page2, page3) {
         elem1.style.top = posTop1 + "px";
         elem1.style.opacity = opacity1 + "%";
     };
+
     function animateLeft() {
         posTop2 = posTop2 - 0.5;
-        if (posTop2 < 600) {
-            posLeft2 = posLeft2 - 0.12;
+        if (posTop2 < screenHeight * 0.5) {
+            posLeft2 = posLeft2 - 0.03;
             opacity2 = opacity2 - 0.08;
         }
-        
-        elem2.style.top = posTop2 + "px";
-        elem2.style.width = width2 + "px";
-        elem2.style.height = height2 + "px";
-        elem2.style.opacity = opacity2 + "%";
-        elem2.style.left = posLeft2 + "px";
-        // setStyle(elem2, width2, height2, opacity2, posTop2, posLeft2);
+
+        setStyle(elem2, width2, height2, opacity2, posTop2, posLeft2);
     };
+
   function animateRight() {
     if (posTop3 <= -450) {
       clearInterval(id);
@@ -83,15 +85,12 @@ function startMovie(page1, page2, page3) {
       if (posTop3 < 800) {
         opacity3 = opacity3 + 0.09;
         if (posTop3 < 500) {
-        posLeft3 = posLeft3 + 0.11;
+        posLeft3 = posLeft3 + 0.015;
         opacity3 = opacity3 - 0.15;
         } 
       }  
-      elem3.style.top = posTop3 + "px";
-      elem3.style.width = width3 + "px";
-      elem3.style.height = height3 + "px";
-      elem3.style.opacity = opacity3 + "%";
-      elem3.style.left = posLeft3 + "px";
+
+      setStyle(elem3, width3, height3, opacity3, posTop3, posLeft3);
     }
   }
 }
