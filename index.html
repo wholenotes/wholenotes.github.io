@@ -4,23 +4,30 @@
 <link rel="stylesheet" type="text/css" href="stylesheet.css" media="screen"/>
 </head>
 <body>
-<img id="page-1" src="fishheadsoup.JPG"></img>
-<img id="page-2" src="yachiyo-2.JPG"></img>
-<img id="page-3" src="Pool_54.JPG"></img>
+<img id="page-1"></img>
+<img id="page-2"></img>
+<img id="page-3"></img>
 <script type = "text/javascript">
  
 var id = null;
-//TODO: handle more images
-//TODO: startMovie page2 page3 optional
-//TODO: add randomness
 //startMovie animates in groups of three
 //startMovie takes the name of the image and the styles as params
-function startMovie(page1, page2, page3) {
-    var elem1 = document.getElementById(page1); 
-    var elem2 = document.getElementById(page2);
-    var elem3 = document.getElementById(page3);  
-    elem2.style.opacity = 0;
-    elem3.style.opacity = 0;
+var elem1 = document.getElementById("page-1");
+var elem2 = document.getElementById("page-2");
+var elem3 = document.getElementById("page-3");
+function startMovie(i,image1, image2, image3) {
+  console.log("new movie!!!" + i)
+  console.log(image1);
+
+    elem1.src = image1;
+    if(!!image2){
+      elem2.src = image2;
+      elem2.style.opacity = 0;
+    }
+    if(!!image3){
+      elem3.src = image3;
+      elem3.style.opacity = 0;
+    }
 
 //need to keep state here for the animate functions
     var screenHeight = screen.height;
@@ -29,12 +36,12 @@ function startMovie(page1, page2, page3) {
     var width1 = 670;
     var height1 = 446;
     var opacity1 = 100;
-    var posTop1 = screenHeight * 0.8; 
+    var posTop1 = screenHeight * 0.7;
     var posLeft1 = 30;
 
     var width2 = 600;
-    var height2 = 413;  
-    var posTop2 = screenHeight * 1.2;
+    var height2 = 413;
+    var posTop2 = screenHeight * 1.1;
     var opacity2 = 100;
     var posLeft2 = 27;
 
@@ -46,11 +53,11 @@ function startMovie(page1, page2, page3) {
 
     setStyle(elem1, width1, height1, opacity1, posTop1, posLeft1);
     clearInterval(id);
-    //animate functions are called on an interval
+    //animate functions are called on an interval - screen refreshes
     id = setInterval(function(){
         animate();
-        animateLeft();
-        animateRight();
+        if(!!image2){animateLeft();}
+        if(!!image3){animateRight();}
     }, 20);
 
     function setStyle(element, width1, height1, opacity1, top1, posLeft1) {
@@ -61,14 +68,18 @@ function startMovie(page1, page2, page3) {
       element.style.left = posLeft1 + "%";
     }
     function animate() {
-        posTop1 = posTop1 - 0.7;
-        opacity1 = opacity1 - 0.10;
+        //TODO: stop the animation if this the last image has reached the end
+        //always make sure it happens after image fades
+        posTop1 = posTop1 - 1.25;
+        opacity1 = opacity1 - 0.12;
         elem1.style.top = posTop1 + "px";
         elem1.style.opacity = opacity1 + "%";
     };
 
     function animateLeft() {
-        posTop2 = posTop2 - 0.5;
+        //TODO: stop the animation if this the last image has reached the end
+        //always make sure it happens after image fades
+        posTop2 = posTop2 - 0.55;
         if (posTop2 < screenHeight * 0.5) {
             posLeft2 = posLeft2 - 0.03;
             opacity2 = opacity2 - 0.08;
@@ -76,26 +87,36 @@ function startMovie(page1, page2, page3) {
 
         setStyle(elem2, width2, height2, opacity2, posTop2, posLeft2);
     };
-
+//0 startMovie(0, images[0],images[1],images[2]); images.length = 4
+//3 startMovie(0, images[0],images[1],images[2]);
   function animateRight() {
-    if (posTop3 <= -450) {
+    if (posTop3 <= 100) {
+      //TODO: only stop the animation if this the last image has reached the end
+      //stops the animation
+      //always make sure it happens after image3 fades
       clearInterval(id);
+      i = i + 3;
+      if (i < images.length) {
+        startMovie(i, images[i],images[i+1],images[i+2]);
+      }
     } else {
-      posTop3 = posTop3 - 0.3; 
+      posTop3 = posTop3 - 0.45;
       if (posTop3 < 800) {
-        opacity3 = opacity3 + 0.09;
+        opacity3 = opacity3 + 0.08;
         if (posTop3 < 500) {
         posLeft3 = posLeft3 + 0.015;
-        opacity3 = opacity3 - 0.15;
-        } 
-      }  
+        opacity3 = opacity3 - 0.14;
+        }
+      }
 
       setStyle(elem3, width3, height3, opacity3, posTop3, posLeft3);
     }
   }
 }
-images = []
-startMovie("page-1", "page-2", "page-3");
+var images = ["yankee_1988.JPG","yachiyo-2.JPG","Pool_54.JPG","fishheadsoup.JPG","Yohen-1.JPG"];
+
+//var images = ["fishheadsoup.JPG","yachiyo-2.JPG","Pool_54.JPG","yankee_1988.JPG","Yohen-1.JPG"];
+startMovie(0,images[0],images[1],images[2]);
 
 </script>
 </body>
