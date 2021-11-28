@@ -4,22 +4,21 @@
 <link rel="stylesheet" type="text/css" href="stylesheet.css" media="screen"/>
 </head>
 <body>
-<img id="page-1"></img>
-<img id="page-2"></img>
-<img id="page-3"></img>
+<img id="page-1" src=""></img>
+<img id="page-2" src=""></img>
+<img id="page-3" src=""></img>
 <script type = "text/javascript">
  
 var id = null;
-//startMovie animates in groups of three
-//startMovie takes the name of the image and the styles as params
+//startCycle animates in groups of three
 var elem1 = document.getElementById("page-1");
 var elem2 = document.getElementById("page-2");
 var elem3 = document.getElementById("page-3");
-function startMovie(i,image1, image2, image3) {
-  console.log("new movie!!!" + i)
-  console.log(image1);
 
+function startCycle(i,image1, image2, image3) {
     elem1.src = image1;
+    elem1.style.visibility = "hidden";
+    elem1.style.visibility = "visible";
     if(!!image2){
       elem2.src = image2;
       elem2.style.opacity = 0;
@@ -36,7 +35,7 @@ function startMovie(i,image1, image2, image3) {
     var width1 = 670;
     var height1 = 446;
     var opacity1 = 100;
-    var posTop1 = screenHeight * 0.7;
+    var posTop1 = screenHeight * 0.8;//0.7 flickers
     var posLeft1 = 30;
 
     var width2 = 600;
@@ -53,7 +52,7 @@ function startMovie(i,image1, image2, image3) {
 
     setStyle(elem1, width1, height1, opacity1, posTop1, posLeft1);
     clearInterval(id);
-    //animate functions are called on an interval - screen refreshes
+    //animate functions are called on an interval
     id = setInterval(function(){
         animate();
         if(!!image2){animateLeft();}
@@ -70,35 +69,41 @@ function startMovie(i,image1, image2, image3) {
     function animate() {
         //TODO: stop the animation if this the last image has reached the end
         //always make sure it happens after image fades
-        posTop1 = posTop1 - 1.25;
-        opacity1 = opacity1 - 0.12;
-        elem1.style.top = posTop1 + "px";
-        elem1.style.opacity = opacity1 + "%";
+      posTop1 = posTop1 - 1.25;
+      opacity1 = opacity1 - 0.12;
+      elem1.style.top = posTop1 + "px";
+      elem1.style.opacity = opacity1 + "%";
+      if (posTop1 <= -500 ) {
+        if (!!images[i+3]) {
+          elem1.style.visibility = "hidden";
+          elem1.style.visibility = "visible";
+          elem1.src = images[i+3];
+        }
+      }
+      //clear animation if the last image of the entire animation has reached the top
+      if(posTop1 < -800 & !!!images[i+1]){clearInterval(id);}
     };
 
     function animateLeft() {
-        //TODO: stop the animation if this the last image has reached the end
-        //always make sure it happens after image fades
-        posTop2 = posTop2 - 0.55;
-        if (posTop2 < screenHeight * 0.5) {
-            posLeft2 = posLeft2 - 0.03;
-            opacity2 = opacity2 - 0.08;
-        }
-
-        setStyle(elem2, width2, height2, opacity2, posTop2, posLeft2);
-    };
-//0 startMovie(0, images[0],images[1],images[2]); images.length = 4
-//3 startMovie(0, images[0],images[1],images[2]);
-  function animateRight() {
-    if (posTop3 <= 100) {
-      //TODO: only stop the animation if this the last image has reached the end
-      //stops the animation
-      //always make sure it happens after image3 fades
-      clearInterval(id);
-      i = i + 3;
-      if (i < images.length) {
-        startMovie(i, images[i],images[i+1],images[i+2]);
+      posTop2 = posTop2 - 0.55;
+      if (posTop2 < screenHeight * 0.5) {
+          posLeft2 = posLeft2 - 0.03;
+          opacity2 = opacity2 - 0.08;
       }
+      setStyle(elem2, width2, height2, opacity2, posTop2, posLeft2);
+      //clear animation if the last image of the entire animation has reached the top
+      if(posTop2 < -800 & !!!images[i+2]){clearInterval(id);}
+    };
+//e.g. CYCLE 1: images.length = 4; startCycle(0, images[0],images[1],images[2]); 
+//CYCLE 2: startCycle(3, images[3],null , null);
+  function animateRight() {
+    if (posTop3 < 0.5 * screenHeight && elem3.style.opacity < 0.045) {
+      //clear animation if the last image of the cycle is close to the top and is fading
+      elem3.style.opacity = 0;
+      if(!!images[i+1]){clearInterval(id);}
+      i = i + 3;
+      //if there are more images, start another cycle
+      if (i < images.length) { startCycle(i, images[i],images[i+1],images[i+2]);}
     } else {
       posTop3 = posTop3 - 0.45;
       if (posTop3 < 800) {
@@ -113,11 +118,14 @@ function startMovie(i,image1, image2, image3) {
     }
   }
 }
-var images = ["yankee_1988.JPG","yachiyo-2.JPG","Pool_54.JPG","fishheadsoup.JPG","Yohen-1.JPG"];
-
-//var images = ["fishheadsoup.JPG","yachiyo-2.JPG","Pool_54.JPG","yankee_1988.JPG","Yohen-1.JPG"];
-startMovie(0,images[0],images[1],images[2]);
-
+var images = ["yankee_1988.JPG","yachiyo-2.JPG","Pool_54.JPG","fishheadsoup.JPG","Yohen-1.JPG","Pool_563.JPG","Pool_412.JPG"];
+preloadImages();
+startCycle(0,images[0],images[1],images[2]);
+function preloadImages(){
+  for (var i=0; i<images.length; i++) {
+      (new Image()).src = images[i];
+  }
+ }
 </script>
 </body>
 </html>

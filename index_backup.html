@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" media="screen"/>
+</head>
+<body>
+<img id="page-1" src="fishheadsoup.JPG"></img>
+<img id="page-2" src="yachiyo-2.JPG"></img>
+<img id="page-3" src="Pool_54.JPG"></img>
+<script type = "text/javascript">
+ 
+var id = null;
+function myMove(page, page2, page3) {
+
+    var elem = document.getElementById(page); 
+    var elem2 = document.getElementById(page2);
+    var elem3 = document.getElementById(page3);  
+    elem2.style.opacity = 0;
+    elem3.style.opacity = 0;
+
+    var opacity = 100;
+    var posTop = 500; 
+    var posLeft = 30;
+
+    var posTop2 = 980;
+    var opacity2 = 100;
+    var posLeft2 = 350;
+
+    var posTop3 = 1100;
+    var opacity3 = 0;
+    var posLeft3 = 550;
+
+    elem.style.top = posTop + "px";   
+    elem.style.left = posLeft + "%";   
+    clearInterval(id);
+    id = setInterval(function(){
+        animate();
+        animateLeft();
+        animateRight();
+    }, 20);
+
+    function animate() {
+        posTop = posTop - 0.7; 
+        opacity = opacity - 0.10;
+        elem.style.top = posTop + "px"; 
+        elem.style.opacity = opacity + "%";
+    };
+    function animateLeft() {
+        posTop2 = posTop2 - 0.5; 
+        if (posTop2 < 600) {
+            posLeft2 = posLeft2 - 0.12; 
+            opacity2 = opacity2 - 0.08;
+        }
+        
+        elem2.style.top = posTop2 + "px"; 
+        elem2.style.opacity = opacity2 + "%";
+        elem2.style.left = posLeft2 + "px"; 
+    };
+  function animateRight() {
+    if (posTop3 <= -450) {
+      clearInterval(id);
+    } else {
+      posTop3 = posTop3 - 0.3; 
+      if (posTop3 < 800) {
+        opacity3 = opacity3 + 0.09;  
+        if (posTop3 < 500) {
+        posLeft3 = posLeft3 + 0.11;   
+        opacity3 = opacity3 - 0.15;     
+        } 
+      }  
+      elem3.style.top = posTop3 + "px"; 
+      elem3.style.opacity = opacity3 + "%";
+      elem3.style.left = posLeft3 + "px"; 
+    }
+  }
+}
+
+myMove("page-1", "page-2", "page-3");
+
+</script>
+</body>
+</html>
